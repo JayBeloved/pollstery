@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Convenient Polling
+{% endblock %}
+
+{% block style%}
+    <!--<style>
+    
+        #hero {
+            min-height: 100vh;
+            background: #141E30;
+            /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #243B55, #141E30);
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #243B55, #141E30);
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+    </style>-->
+{% endblock %}
+
+{% block header %}
+<div class="mb-5"></div>
+<div class="d-flex p-2 bd-highlight justify-content-center h1 mb-5 mt-2">POLL QUESTIONS</div>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+    {% if latest_question_list %}
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+        {% for question in latest_question_list %}
+            <div class="card text-dark bg-light border-info mb-3 mr-1" style="max-width: 18rem;">
+                    <div class="card-header h4">Poll {{ question.id }}</div>
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="{% static 'pages/devnew.png' %}" class="card-img-top" alt="Card Image">
+                        <div class="card-body">
+                            <a href="{% url 'polls:detail' question.id  %}" class="btn btn-primary bg-primary">Vote</a>
+                            <a href="{% url 'polls:results' question.id %}" class="btn btn-primary bg-secondary">Results</a>
+                            <h5 class="card-title">{{ question.question_text}}</h5>
+                            <p class="card-text"><small class="text-muted">Your Votes Counts</small></p>   
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}    
+        </div>
+    {% else %}
+        <div class="d-flex p-2 bd-highlight justify-content-center h3 mb-5 mt-2">NO POLLS AVAILABLE</div>
+    {% endif %}
+    </div>
+{% endblock %}
+
